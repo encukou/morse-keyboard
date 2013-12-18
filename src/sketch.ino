@@ -20,9 +20,9 @@ bool state = false;
 unsigned long cooldown_start = 0;
 unsigned long pulse_start = 0;
 
-unsigned num_s;
-unsigned index;
-unsigned stride;
+unsigned num_s = 0;
+unsigned index = 0;
+unsigned stride = initial_stride;
 
 int read_value() {
     return analogRead(REF_PIN) - analogRead(DAT_PIN);
