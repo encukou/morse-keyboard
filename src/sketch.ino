@@ -91,7 +91,13 @@ void loop() {
         }
     }
     if (!state && (index || num_s) && pulse_start + 2 * DIT < nowms) {
-        if (mode == MODE_LETTERS) Serial.print(get_char());
+        if (mode == MODE_LETTERS) {
+            char c = get_char();
+            Serial.print(c);
+            if (c == '\r') {
+                Serial.println();
+            }
+        }
         num_s = 0;
         index = 0;
         stride = initial_stride;
