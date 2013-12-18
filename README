@@ -1,0 +1,37 @@
+A Morse-based wireless keyboard!
+(it's pretty slow)
+
+The setup:
+A Raspberry Pi blinks a LED in response to keystrokes it gets from
+a keyboard.
+An Arduino receives the message, decodes the characters, ands sends them over
+its serial interface.
+
+Parts:
+- Raspberry Pi
+- A bright LED
+- ~100R resistor
+- 2 ~10K resistors
+- 2 photoresistors
+
+Connect the LED and 100R resistor in series between Raspberry pin 7 & ground.
+
+Connect a photoresistor between Arduino's pin A5 and ground,
+and a 10K resistor between A5 and +5V.
+Connect the second photoresistor between Arduino's pin A0 and ground,
+and the other 10K resistor between A0 and +5V.
+
+Orient one of the photoresistors to face the LED.
+The other one will sense ambient light.
+
+On the Raspberry, install RPi.GPIO and run the morseled.py script as root.
+Or you can set the script to start at boot.
+
+For the Arduino part:
+Generate lookup tables:
+    python makelookup.py | tee src/lookup.h
+Compile, upload, start (using ino):
+    ino build && ino upload && ino serial
+
+Sending the numbers 1-4 to the Arduino's over serial will change the
+reporting mode.
